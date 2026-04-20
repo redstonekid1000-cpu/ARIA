@@ -369,9 +369,9 @@ async function askAI(text) {
       body: JSON.stringify({ model: MODEL, messages: msgs, max_tokens: 600 })
     });
     if (!res.ok) {
-      const err = await res.text();
-      return { speech: `API error ${res.status}. Check your key in settings.`, action: null };
-    }
+  const err = await res.text();
+  return { speech: `API error ${res.status}: ${err}`, action: null };
+}
     const data = await res.json();
     const raw  = data.choices[0].message.content.trim();
     const match = raw.match(/\{[\s\S]*\}/);
